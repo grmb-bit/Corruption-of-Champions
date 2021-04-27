@@ -1077,7 +1077,7 @@ public function urtaMSpecials():void {
 		return;
 	}
 	menu();
-	if (player.findPerk(PerkLib.Berzerker) >= 0) {
+	if (player.hasPerk(PerkLib.Berzerker)) {
 		addButton(0, "Berserk", berzerk).hint("Throw yourself into a rage!  Greatly increases the strength of your weapon and increases lust resistance, but your armor defense is reduced to zero!");
 	}
 	addButton(14, "Back", combat.combatMenu, false);
@@ -1188,7 +1188,7 @@ private function urtaComboAttack():void {
 	critChance += combat.combatPhysicalCritical();
 	if (player.hasPerk(PerkLib.WeaponMastery)) critChance += 10;
 	if (player.hasPerk(PerkLib.WeaponGrandMastery)) critChance += 10;
-	if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance = 0;
+	if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance = 0;
 	if (rand(100) < critChance) {
 		crit = true;
 		damage *= 2;
@@ -1199,7 +1199,7 @@ private function urtaComboAttack():void {
 	if(player.weaponName != "jeweled rapier" && player.weaponName != "deadly spear") {
 		reduction += monster.armorDef;
 		//Remove half armor for lunging strikes
-		if(player.findPerk(PerkLib.LungingAttacks) >= 0)
+		if(player.hasPerk(PerkLib.LungingAttacks))
 			reduction -= monster.armorDef/2;
 	}
 	//Take 5 off enemy armor for katana
@@ -1213,14 +1213,14 @@ private function urtaComboAttack():void {
 	damage -= reduction;
 	//Damage post processing!
 	//Thunderous Strikes
-	if(player.findPerk(PerkLib.ThunderousStrikes) >= 0 && player.str >= 80)
+	if(player.hasPerk(PerkLib.ThunderousStrikes) && player.str >= 80)
 		damage *= 1.2;
 	//One final round
 	damage = Math.round(damage);
 
 	if(damage > 0) {
-		if(player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
-		if(player.findPerk(PerkLib.JobWarrior) >= 0) damage *= 1.05;
+		if(player.hasPerk(PerkLib.HistoryFighter)) damage *= 1.1;
+		if(player.hasPerk(PerkLib.JobWarrior)) damage *= 1.05;
 		damage = SceneLib.combat.doDamage(damage);
 	}
 	if(damage <= 0) {
@@ -1231,7 +1231,7 @@ private function urtaComboAttack():void {
 		outputText("You hit " + monster.a + monster.short + "! (" + damage + ")");
 		if(crit) outputText(" <b>*CRIT*</b>");
 	}
-	if(player.findPerk(PerkLib.BrutalBlows) >= 0 && player.str > 75) {
+	if(player.hasPerk(PerkLib.BrutalBlows) && player.str > 75) {
 		if(monster.armorDef > 0) outputText("\nYour hits are so brutal that you damage " + monster.a + monster.short + "'s defenses!");
 		if(monster.armorDef - 10 > 0) monster.armorDef -= 10;
 		else monster.armorDef = 0;
@@ -1336,7 +1336,7 @@ private function urtaSidewinder():void {
 	critChance += combat.combatPhysicalCritical();
 	if (player.hasPerk(PerkLib.WeaponMastery)) critChance += 10;
 	if (player.hasPerk(PerkLib.WeaponGrandMastery)) critChance += 10;
-	if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance = 0;
+	if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance = 0;
 	if (rand(100) < critChance) {
 		crit = true;
 		damage *= 1.75;
@@ -1347,7 +1347,7 @@ private function urtaSidewinder():void {
 	if(player.weaponName != "jeweled rapier" && player.weaponName != "deadly spear") {
 		reduction += monster.armorDef;
 		//Remove half armor for lunging strikes
-		if(player.findPerk(PerkLib.LungingAttacks) >= 0)
+		if(player.hasPerk(PerkLib.LungingAttacks))
 			reduction -= monster.armorDef/2;
 	}
 	//Take 5 off enemy armor for katana
@@ -1361,14 +1361,14 @@ private function urtaSidewinder():void {
 	damage -= reduction;
 	//Damage post processing!
 	//Thunderous Strikes
-	if(player.findPerk(PerkLib.ThunderousStrikes) >= 0 && player.str >= 80)
+	if(player.hasPerk(PerkLib.ThunderousStrikes) && player.str >= 80)
 		damage *= 1.2;
 	//One final round
 	damage = Math.round(damage);
 
 	if(damage > 0) {
-		if(player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
-		if(player.findPerk(PerkLib.JobWarrior) >= 0) damage *= 1.05;
+		if(player.hasPerk(PerkLib.HistoryFighter)) damage *= 1.1;
+		if(player.hasPerk(PerkLib.JobWarrior)) damage *= 1.05;
 		damage = SceneLib.combat.doDamage(damage);
 	}
 	if(damage <= 0) {
@@ -1379,18 +1379,18 @@ private function urtaSidewinder():void {
 		outputText("You hit " + monster.a + monster.short + "! (" + damage + ")");
 		if(crit) outputText(" <b>*CRIT*</b>");
 	}
-	if(player.findPerk(PerkLib.BrutalBlows) >= 0 && player.str > 75) {
+	if(player.hasPerk(PerkLib.BrutalBlows) && player.str > 75) {
 		if(monster.armorDef > 0) outputText("\nYour hits are so brutal that you damage " + monster.a + monster.short + "'s defenses!");
 		if(monster.armorDef - 10 > 0) monster.armorDef -= 10;
 		else monster.armorDef = 0;
 	}
-	if(!monster.hasStatusEffect(StatusEffects.Stunned) && monster.findPerk(PerkLib.Resolute) < 0 && damage > 0) {
+	if(!monster.hasStatusEffect(StatusEffects.Stunned) && monster.hasPerk(PerkLib.Resolute) == false && damage > 0) {
 		if(rand(3) > 0) {
 			outputText("\n<b>" + monster.capitalA + monster.short + " is stunned!</b>");
 			monster.createStatusEffect(StatusEffects.Stunned,1,0,0,0);
 		}
 	}
-	else if(monster.findPerk(PerkLib.Resolute) >= 0) {
+	else if(monster.hasPerk(PerkLib.Resolute)) {
 		outputText("\nWhile it should have some chance of stunning, your foe seems far too resolute to be affected by such an ailment.");
 	}
 	outputText("\n");
@@ -1469,7 +1469,7 @@ private function urtaVaultAttack():void {
 	critChance += combat.combatPhysicalCritical();
 	if (player.hasPerk(PerkLib.WeaponMastery)) critChance += 10;
 	if (player.hasPerk(PerkLib.WeaponGrandMastery)) critChance += 10;
-	if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance = 0;
+	if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance = 0;
 	if (monster.monsterIsStunned()) critChance = 100;
 	if (rand(100) < critChance) {
 		crit = true;
@@ -1481,7 +1481,7 @@ private function urtaVaultAttack():void {
 	if(player.weaponName != "jeweled rapier" && player.weaponName != "deadly spear") {
 		reduction += monster.armorDef;
 		//Remove half armor for lunging strikes
-		if(player.findPerk(PerkLib.LungingAttacks) >= 0)
+		if(player.hasPerk(PerkLib.LungingAttacks))
 			reduction -= monster.armorDef/2;
 	}
 	//Take 5 off enemy armor for katana
@@ -1495,14 +1495,14 @@ private function urtaVaultAttack():void {
 	damage -= reduction;
 	//Damage post processing!
 	//Thunderous Strikes
-	if(player.findPerk(PerkLib.ThunderousStrikes) >= 0 && player.str >= 80)
+	if(player.hasPerk(PerkLib.ThunderousStrikes) && player.str >= 80)
 		damage *= 1.2;
 	//One final round
 	damage = Math.round(damage);
 
 	if(damage > 0) {
-		if(player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
-		if(player.findPerk(PerkLib.JobWarrior) >= 0) damage *= 1.05;
+		if(player.hasPerk(PerkLib.HistoryFighter)) damage *= 1.1;
+		if(player.hasPerk(PerkLib.JobWarrior)) damage *= 1.05;
 		damage = SceneLib.combat.doDamage(damage);
 	}
 	if(damage <= 0) {
@@ -1513,7 +1513,7 @@ private function urtaVaultAttack():void {
 		outputText("You hit " + monster.a + monster.short + "! (" + damage + ")");
 		if(crit) outputText(" <b>*CRIT*</b>");
 	}
-	if(player.findPerk(PerkLib.BrutalBlows) >= 0 && player.str > 75) {
+	if(player.hasPerk(PerkLib.BrutalBlows) && player.str > 75) {
 		if(monster.armorDef > 0) outputText("\nYour hits are so brutal that you damage " + monster.a + monster.short + "'s defenses!");
 		if(monster.armorDef - 10 > 0) monster.armorDef -= 10;
 		else monster.armorDef = 0;

@@ -2737,17 +2737,13 @@ public function unFuckSave():void
 	//Fixing shit!
 
 	// Fix duplicate elven bounty perks
-	if (player.findPerk(PerkLib.ElvenBounty) >= 0) {
-		//CLear duplicates
-		while(player.perkDuplicated(PerkLib.ElvenBounty)) player.removePerk(PerkLib.ElvenBounty);
+	if (player.hasPerk(PerkLib.ElvenBounty)) {
 		//Fix fudged preggers value
 		if (player.perkv1(PerkLib.ElvenBounty) == 15) {
 			player.setPerkValue(PerkLib.ElvenBounty,1,0);
 			player.addPerkValue(PerkLib.ElvenBounty,2,15);
 		}
 	}
-	while (player.perkDuplicated(PerkLib.NinetailsKitsuneOfBalance)) player.removePerk(PerkLib.NinetailsKitsuneOfBalance);
-	while (player.perkDuplicated(PerkLib.KitsuneThyroidGland)) player.removePerk(PerkLib.KitsuneThyroidGland);
 
 	if (player.hasStatusEffect(StatusEffects.KnockedBack))
 	{
@@ -2807,7 +2803,7 @@ public function unFuckSave():void
 		}
 		if (flags[kFLAGS.AMILY_OVIPOSITED_COUNTDOWN] > 0) {
 			if (flags[kFLAGS.AMILY_BUTT_PREGNANCY_TYPE] != 0) return; //Must be a new format save
-			if (player.findPerk(PerkLib.SpiderOvipositor) >= 0)
+			if (player.hasPerk(PerkLib.SpiderOvipositor))
 				flags[kFLAGS.AMILY_BUTT_PREGNANCY_TYPE] = PregnancyStore.PREGNANCY_DRIDER_EGGS;
 			else
 				flags[kFLAGS.AMILY_BUTT_PREGNANCY_TYPE] = PregnancyStore.PREGNANCY_BEE_EGGS;
@@ -2926,7 +2922,7 @@ public function unFuckSave():void
 		if (flags[kFLAGS.URTA_PREGNANCY_TYPE] == PregnancyStore.PREGNANCY_PLAYER) return; //Must be a new format save
 		if (flags[kFLAGS.URTA_PREGNANCY_TYPE] > 0) { //URTA_PREGNANCY_TYPE was previously URTA_EGG_INCUBATION, assume this was an egg pregnancy
 			flags[kFLAGS.URTA_INCUBATION] = flags[kFLAGS.URTA_PREGNANCY_TYPE];
-			if (player.findPerk(PerkLib.SpiderOvipositor) >= 0)
+			if (player.hasPerk(PerkLib.SpiderOvipositor))
 				flags[kFLAGS.URTA_PREGNANCY_TYPE] = PregnancyStore.PREGNANCY_DRIDER_EGGS;
 			else
 				flags[kFLAGS.URTA_PREGNANCY_TYPE] = PregnancyStore.PREGNANCY_BEE_EGGS;

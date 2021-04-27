@@ -215,9 +215,9 @@ public class HeXinDao extends BaseContent
             return introText+desc+costText+(itype.value*0.2)+endText2;
         }
 		addButton(1, "1st Stall", TierI).hint("Check out the first stall selling common items and other items for soul cultivators that just started their journey.");
-        if (player.findPerk(PerkLib.SoulApprentice) >= 0) addButton(2, "2nd Stall", TierII).hint("Check out the second stall with items for Soul Apprentices, Soul Personage and Soul Warrior stage cultivators.");
+        if (player.hasPerk(PerkLib.SoulApprentice)) addButton(2, "2nd Stall", TierII).hint("Check out the second stall with items for Soul Apprentices, Soul Personage and Soul Warrior stage cultivators.");
 		else addButtonDisabled(2, "2nd Stall", "You need to be at least a Soul Apprentice to check those items.");
-        if (player.findPerk(PerkLib.SoulSprite) >= 0) addButton(3, "3rd Stall", TierIII).hint("Check out the third stall with items for Soul Sprites, Soul Scholars and Soul Elder stage cultivators.");
+        if (player.hasPerk(PerkLib.SoulSprite)) addButton(3, "3rd Stall", TierIII).hint("Check out the third stall with items for Soul Sprites, Soul Scholars and Soul Elder stage cultivators.");
 		else addButtonDisabled(3, "3rd Stall", "You need to be at least a Soul Sprite to check those items.");
 		function TierI():void {
 			menu();
@@ -229,7 +229,7 @@ public class HeXinDao extends BaseContent
 					sayLine1(useables.E_P_BOT,"These bottles can be used to organize SoulForce pills. Due to the nature of the pills,they must be consumed shortly after opening the bottle or they would lose their effects. Some cultivators have theorized on the properties of the pills for a long time, but no definitive answer has been reached.")).hint("Empty Pills Bottle.");
 			addButton(3, "IncenOfInsig", buyItem1,consumables.INCOINS,
 					sayLine1(consumables.INCOINS,"These incenses are quite special. They will grant you visions for a short moment while meditating. This should help you find the wisdom and insight you need.")).hint("Incense of Insight.");
-			if (player.findPerk(PerkLib.JobSoulCultivator) >= 0) {
+			if (player.hasPerk(PerkLib.JobSoulCultivator)) {
 				addButton(5, "Triple Thrust", buyItem2,consumables.TRITMAN,
 						sayLine2(consumables.TRITMAN,"It's a manual for Triple Thrust, this very simple technique allows you to unleash three thrusts that will become stronger and stronger as you train your body and soul."),
 						"\n\nWhether you are going to try to go deeper into all that 'soulforce' stuff or not, at least you now have something to begin with.  It seems like even the name of the manual could have been influenced by this realm's nature... either that or it's just a coincidence.  " //NTP-What does the second paragragh mean??? Tried my best here. #1
@@ -270,7 +270,7 @@ public class HeXinDao extends BaseContent
 					sayLine2(consumables.NOBBMAN,"It's a manual for Night of Brotherhood (Basic Rank), this simple technique allows you to covert excess wrath into darkness."),
 					"\n\nIt seems like some sort of art to deal with needless wrath by changing it into another....more deadly form.  But what does basic rank mean?  Is there a higher rank for this soulskill?  "
 			).hint("Night of Brotherhood (Basic Rank) Manual.");
-			if (player.findPerk(PerkLib.SoulPersonage) >= 0) {
+			if (player.hasPerk(PerkLib.SoulPersonage)) {
 				addButton(4, "Sextuple Thrust", buyItem2,consumables.SEXTMAN,
 						sayLine2(consumables.SEXTMAN,"It's a manual for Sextuple Thrust, this simple technique allows you to unleash six thrusts that will become stronger and stronger as you train your body and soul."),
 						"\n\nWhether you are going to go deeper into all that 'soulforce' stuff or not, at least you now have something to train with.  Although seems even name of the manual mentioning thrusting seems like it could have been influenced by this realm nature...or it's just a coincidence.  " 
@@ -280,7 +280,7 @@ public class HeXinDao extends BaseContent
 						"\n\nWhether you are going to go deeper into all that 'soulforce' stuff or not, at least you now have something to begin with.  The name of the manual is strange, but it makes you remember something...but what and from where you not certain.  "
 				).hint("Grandiose Hail of Blades Manual.");
 			}
-			if (player.findPerk(PerkLib.SoulWarrior) >= 0) {
+			if (player.hasPerk(PerkLib.SoulWarrior)) {
 				addButton(7, "MGSFRecovPill", buyItem2,consumables.MG_SFRP,
 						sayLine2(consumables.MG_SFRP,"It's a rather useful item for all cultivators at Soul Warrior stage or higher, this small pill can help you restore some of your soulforce and would provide much more than the low-grade one.")).hint("Mid-grade Soulforce Recovery Pill.");
 				addButton(8, "Comet", buyItem2,consumables.COMETMA,
@@ -312,13 +312,13 @@ public class HeXinDao extends BaseContent
 			addButton(14, "Back", golemmerchant);
             statScreenRefresh();
 		}/*
-		if (player.findPerk(PerkLib.SoulExalt) >= 0) { lub soul overlord - each soul stage above starting allow to extend channeling time by 1 round
+		if (player.hasPerk(PerkLib.SoulExalt)) { lub soul overlord - each soul stage above starting allow to extend channeling time by 1 round
 			addButton(1, "GHoMB", buyItem2,consumables.HOB4MAN,
 					sayLine2(consumables.HOB4MAN,"It's a manual for Grandiose Hail of Moon Blades, this technique allows you to form massive amount of etheral weapons traveling at extreme speeds that will become stronger and stronger as you train your body and soul."),
 					"\n\nYou already went so deep into becoming cultivator so why not?  'Few' more weapons formed will not hurt at this point, right?  "
 			).hint("Grandiose Heavenly Hail of Yin-Yang Blades: Endless Tide Manual.");
 		}*/
-		if (player.findPerk(PerkLib.SoulOverlord) >= 0) {
+		if (player.hasPerk(PerkLib.SoulOverlord)) {
 			addButton(10, "HGSFRecovPill", buyItem2,consumables.HG_SFRP,
 					sayLine2(consumables.HG_SFRP,"It's a rather useful item for all cultivators at Soul Overlord stage or higher, this small pill can help you restore some of your soulforce and would provide much more than the mid-grade one.")).hint("High-grade Soulforce Recovery Pill.");
 		}
@@ -646,9 +646,9 @@ public class HeXinDao extends BaseContent
     }
     public function soulequipmentshelf4():void {
         menu();
-        if (player.findPerk(PerkLib.SoulApprentice) >= 0) addButton(0, armors.LAYOARM.shortName, weaponBuy, armors.LAYOARM);
+        if (player.hasPerk(PerkLib.SoulApprentice)) addButton(0, armors.LAYOARM.shortName, weaponBuy, armors.LAYOARM);
 		else addButtonDisabled(0, "???", "Req. Soul Apprentice");
-        if (player.findPerk(PerkLib.SoulPersonage) >= 0) addButton(1, armors.HAYOARM.shortName, weaponBuy, armors.HAYOARM);
+        if (player.hasPerk(PerkLib.SoulPersonage)) addButton(1, armors.HAYOARM.shortName, weaponBuy, armors.HAYOARM);
 		else addButtonDisabled(1, "???", "Req. Soul Personage");
         //addButton(11, weapons.MACE.shortName, weaponBuy, weapons.MACE);//basic armor made of soulmetal that works with unhindered perk xD czyli coś ala bikini lub ogólnie tylko underwear z fragmentami zbroi lewitującymi wokół postaci i tylko w wypadku ataku wroga przesuwające sie aby przyjąć atak
         //addButton(12, weapons.MACE.shortName, weaponBuy, weapons.MACE);//basic light armor made of soulmetal

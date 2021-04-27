@@ -1394,16 +1394,16 @@ import classes.lists.Gender;
 		public function satyrTFs():void {
 			var changes:int = 0;
 			var changeLimit:int = 3;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 || player.findPerk(PerkLib.PastLifeAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Enhancement) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Fusion) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Enchantment) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Refinement) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Saturation) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Perfection) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Creationism) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.EzekielBlessing) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.hasPerk(PerkLib.HistoryAlchemist) || player.hasPerk(PerkLib.PastLifeAlchemist)) changeLimit++;
+			if (player.hasPerk(PerkLib.Enhancement)) changeLimit++;
+			if (player.hasPerk(PerkLib.Fusion)) changeLimit++;
+			if (player.hasPerk(PerkLib.Enchantment)) changeLimit++;
+			if (player.hasPerk(PerkLib.Refinement)) changeLimit++;
+			if (player.hasPerk(PerkLib.Saturation)) changeLimit++;
+			if (player.hasPerk(PerkLib.Perfection)) changeLimit++;
+			if (player.hasPerk(PerkLib.Creationism)) changeLimit++;
+			if (player.hasPerk(PerkLib.EzekielBlessing)) changeLimit++;
+			if (player.hasPerk(PerkLib.TransformationResistance)) changeLimit--;
 			//Stats and genital changes
 			if (rand(2) == 0) {
 				outputText("\n\nHeat floods your loins as thoughts of tight round asses and dripping pussies flood your mind.");
@@ -1528,16 +1528,16 @@ import classes.lists.Gender;
 		public function rhinoTFs():void {
 			var changes:int = 0;
 			var changeLimit:int = 3;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 || player.findPerk(PerkLib.PastLifeAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Enhancement) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Fusion) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Enchantment) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Refinement) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Saturation) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Perfection) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Creationism) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.EzekielBlessing) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.hasPerk(PerkLib.HistoryAlchemist) || player.hasPerk(PerkLib.PastLifeAlchemist)) changeLimit++;
+			if (player.hasPerk(PerkLib.Enhancement)) changeLimit++;
+			if (player.hasPerk(PerkLib.Fusion)) changeLimit++;
+			if (player.hasPerk(PerkLib.Enchantment)) changeLimit++;
+			if (player.hasPerk(PerkLib.Refinement)) changeLimit++;
+			if (player.hasPerk(PerkLib.Saturation)) changeLimit++;
+			if (player.hasPerk(PerkLib.Perfection)) changeLimit++;
+			if (player.hasPerk(PerkLib.Creationism)) changeLimit++;
+			if (player.hasPerk(PerkLib.EzekielBlessing)) changeLimit++;
+			if (player.hasPerk(PerkLib.TransformationResistance)) changeLimit--;
 			// Stats Changes
 			//------------
 			if (rand(3) == 0 && player.str < 100) {
@@ -1833,16 +1833,16 @@ import classes.lists.Gender;
 		public function echidnaTFs():void {
 			var changes:int = 0;
 			var changeLimit:int = 3;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 || player.findPerk(PerkLib.PastLifeAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Enhancement) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Fusion) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Enchantment) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Refinement) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Saturation) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Perfection) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.Creationism) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.EzekielBlessing) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.hasPerk(PerkLib.HistoryAlchemist) || player.hasPerk(PerkLib.PastLifeAlchemist)) changeLimit++;
+			if (player.hasPerk(PerkLib.Enhancement)) changeLimit++;
+			if (player.hasPerk(PerkLib.Fusion)) changeLimit++;
+			if (player.hasPerk(PerkLib.Enchantment)) changeLimit++;
+			if (player.hasPerk(PerkLib.Refinement)) changeLimit++;
+			if (player.hasPerk(PerkLib.Saturation)) changeLimit++;
+			if (player.hasPerk(PerkLib.Perfection)) changeLimit++;
+			if (player.hasPerk(PerkLib.Creationism)) changeLimit++;
+			if (player.hasPerk(PerkLib.EzekielBlessing)) changeLimit++;
+			if (player.hasPerk(PerkLib.TransformationResistance)) changeLimit--;
 			var i:int = 0;
 			// Stats Changes
 			//------------
@@ -1887,7 +1887,7 @@ import classes.lists.Gender;
 			if (rand(3) == 0 && changes < changeLimit && player.lowerBody != LowerBody.GARGOYLE && !player.hasFur()) {
 				outputText("\n\nYou shiver, feeling a bit cold. Just as you begin to wish for something to cover up with, it seems your request is granted; <b>fur begins to grow all over your body!</b> You tug at the tufts in alarm, but they're firmly rooted and... actually pretty soft. Huh. ");
 				player.skin.growFur({color:"brown"});
-				if (player.findPerk(PerkLib.GeneticMemory) >= 0 && !player.hasStatusEffect(StatusEffects.UnlockedFur)) {
+				if (player.hasPerk(PerkLib.GeneticMemory) && !player.hasStatusEffect(StatusEffects.UnlockedFur)) {
 					outputText("\n\n<b>Genetic Memory: Fur - Memorized!</b>\n\n");
 					player.createStatusEffect(StatusEffects.UnlockedFur, 0, 0, 0, 0);
 				}
@@ -2058,7 +2058,7 @@ import classes.lists.Gender;
 			if (rand(3) == 0 && changes < changeLimit && player.hasCock() && player.cumMultiplier < 25) {
 				var mult:Number = 1 + rand(4);
 				//Lots of cum raises cum multiplier cap to 3 instead of 1.5
-				if (player.findPerk(PerkLib.MessyOrgasms) >= 0) mult += rand(20);
+				if (player.hasPerk(PerkLib.MessyOrgasms)) mult += rand(20);
 				mult *= 0.1;
 				player.cumMultiplier += mult;
 				//Flavor text
@@ -2072,7 +2072,7 @@ import classes.lists.Gender;
 				player.shrinkTits();
 				changes++;
 			}
-			if (rand(4) == 0 && changes < changeLimit && player.echidnaScore() >= 3 && player.hasVagina() && player.findPerk(PerkLib.Oviposition) < 0) {
+			if (rand(4) == 0 && changes < changeLimit && player.echidnaScore() >= 3 && player.hasVagina() && player.hasPerk(PerkLib.Oviposition) == false) {
 				outputText("\n\nDeep inside yourself there is a change.  It makes you feel a little woozy, but passes quickly.  Beyond that, you aren't sure exactly what just happened, but you are sure it originated from your womb.\n");
 				outputText("(<b>Perk Gained: Oviposition</b>)");
 				player.createPerk(PerkLib.Oviposition, 0, 0, 0, 0);

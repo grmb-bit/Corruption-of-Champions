@@ -27,7 +27,7 @@ public class HarpyQueen extends Monster
 			//Struggle Fail: 
 			if(rand(10) > 0 && player.str/5 + rand(20) < 23 || wait) {
 				outputText("You give a mighty try, but cannot pull free of the magic ropes!  The Harpy Queen laughs uproariously, pulling at your arms harder.");
-				if (player.findPerk(PerkLib.Juggernaut) < 0 && armorPerk != "Heavy") {var damage:int = 25 + rand(10);
+				if (player.hasPerk(PerkLib.Juggernaut) == false && armorPerk != "Heavy") {var damage:int = 25 + rand(10);
 				damage = player.takeMagicDamage(damage, true);
 				}
 			}
@@ -76,10 +76,10 @@ public class HarpyQueen extends Monster
 		
 		public function SpellMod():Number {
 			var mod:Number = 1;
-			if (findPerk(PerkLib.JobSorcerer) >= 0) mod += .1;
-			if (findPerk(PerkLib.Mage) >= 0) mod += .2;
-			if (findPerk(PerkLib.Spellpower) >= 0) mod += .2;
-			if (findPerk(PerkLib.WizardsFocus) >= 0) mod += .6;
+			if (hasPerk(PerkLib.JobSorcerer)) mod += .1;
+			if (hasPerk(PerkLib.Mage)) mod += .2;
+			if (hasPerk(PerkLib.Spellpower)) mod += .2;
+			if (hasPerk(PerkLib.WizardsFocus)) mod += .6;
 			return mod;
 		}
 		

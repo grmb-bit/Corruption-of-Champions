@@ -414,7 +414,7 @@ public function workFarm():void {
 				return;
 			}
 			else {
-				if(player.findPerk(PerkLib.MarbleResistant) >= 0) {
+				if(player.hasPerk(PerkLib.MarbleResistant)) {
 					//(work with Marble when helping)
 					marbleScene.postAddictionFarmHelpings();
 					return;
@@ -500,7 +500,7 @@ public function meetMarble():void {
 		else marbleScene.encounterMarbleExploring2();
 	}
 	else {
-		if(player.findPerk(PerkLib.MarbleResistant) >= 0) {
+		if(player.hasPerk(PerkLib.MarbleResistant)) {
 			marbleScene.postAddictionFarmExplorings();
 			return;
 		}

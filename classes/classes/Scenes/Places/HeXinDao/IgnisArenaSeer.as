@@ -17,7 +17,7 @@ public class IgnisArenaSeer extends Monster
 		
 		public function IgnisCastsNuke():void {
 			outputText("Ignis raises his palm, a orb of fire appearing above it.  Then without warning, the fire radiates out with the force of an explosion! You are buffeted by wave after wave of flames, burning hotter than you could have ever imagined. ");
-			if (player.findPerk(PerkLib.SoulSprite) > 0 || player.findPerk(PerkLib.Archmage) > 0) outputText("You try and cast makeshift defenses around yourself, with limited success. ");
+			if (player.hasPerk(PerkLib.SoulSprite) || player.hasPerk(PerkLib.Archmage)) outputText("You try and cast makeshift defenses around yourself, with limited success. ");
 			outputText("You try and huddle down and take shelter from the infernal storm, but the fire is everywhere. Then, as suddenly as the flame came, they are gone.\n\n");
 			this.createStatusEffect(StatusEffects.IgnisCastedNuke, 0, 0, 0, 0);
 			var damage:Number = 5000;
@@ -27,8 +27,8 @@ public class IgnisArenaSeer extends Monster
 				damage *= 0.5;
 			}
 			damage = Math.round(damage);
-			if (player.findPerk(PerkLib.SoulSprite) > 0) player.takeFireDamage(damage, true);
-			if (player.findPerk(PerkLib.Archmage) > 0) player.takeFireDamage(damage, true);
+			if (player.hasPerk(PerkLib.SoulSprite)) player.takeFireDamage(damage, true);
+			if (player.hasPerk(PerkLib.Archmage)) player.takeFireDamage(damage, true);
 			player.takeMagicDamage(damage, true);
 		}
 		
@@ -52,8 +52,8 @@ public class IgnisArenaSeer extends Monster
 			if (player.armorPerk == "Heavy" || player.armorPerk == "Light Ayo" || player.armorPerk == "Heavy Ayo" || player.armorPerk == "Ultra Heavy Ayo") outputText("Thankfully, your armor manages to absorb most of the impact. ");
 			var damage:Number = 0;
 			damage += inteligencescalingbonus();
-			if (player.findPerk(PerkLib.FromTheFrozenWaste) >= 0 || player.findPerk(PerkLib.ColdAffinity) >= 0) damage *= 3;
-			if (player.findPerk(PerkLib.FireAffinity) >= 0) damage *= 0.3;
+			if (player.hasPerk(PerkLib.FromTheFrozenWaste) || player.hasPerk(PerkLib.ColdAffinity)) damage *= 3;
+			if (player.hasPerk(PerkLib.FireAffinity)) damage *= 0.3;
 			if (player.armorPerk != "Heavy" && player.armorPerk != "Light Ayo" && player.armorPerk != "Heavy Ayo" && player.armorPerk != "Ultra Heavy Ayo") damage *= 2;
 			damage = Math.round(damage);
 			player.takeMagicDamage(damage, true);

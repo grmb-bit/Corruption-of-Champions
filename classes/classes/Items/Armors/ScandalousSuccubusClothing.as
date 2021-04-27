@@ -26,13 +26,13 @@ import classes.StatusEffects;
 		//}
 
 		override public function playerEquip():Armor {
-			while (game.player.findPerk(PerkLib.ScandalousSuccubusClothing) >= 0) game.player.removePerk(PerkLib.ScandalousSuccubusClothing);
+			while (game.player.hasPerk(PerkLib.ScandalousSuccubusClothing)) game.player.removePerk(PerkLib.ScandalousSuccubusClothing);
 			game.player.createPerk(PerkLib.ScandalousSuccubusClothing,0,0,0,0);
 			return super.playerEquip();
 		}
 
 		override public function playerRemove():Armor {
-			while (game.player.findPerk(PerkLib.ScandalousSuccubusClothing) >= 0) game.player.removePerk(PerkLib.ScandalousSuccubusClothing);
+			while (game.player.hasPerk(PerkLib.ScandalousSuccubusClothing)) game.player.removePerk(PerkLib.ScandalousSuccubusClothing);
 			return super.playerRemove();
 		}
 

@@ -19,16 +19,16 @@ import classes.StatusEffects;
 		}
 
 		override public function playerEquip():Armor {
-			while (game.player.findPerk(PerkLib.TamamoNoMaeCursedKimono) >= 0) game.player.removePerk(PerkLib.TamamoNoMaeCursedKimono);
+			while (game.player.hasPerk(PerkLib.TamamoNoMaeCursedKimono)) game.player.removePerk(PerkLib.TamamoNoMaeCursedKimono);
 			game.player.createPerk(PerkLib.TamamoNoMaeCursedKimono,0,0,0,0);
-			while (game.player.findPerk(PerkLib.SluttySeduction) >= 0) game.player.removePerk(PerkLib.SluttySeduction);
+			while (game.player.hasPerk(PerkLib.SluttySeduction)) game.player.removePerk(PerkLib.SluttySeduction);
 			game.player.createPerk(PerkLib.SluttySeduction,15,0,0,0);
 			return super.playerEquip();
 		}
 
 		override public function playerRemove():Armor {
-			while (game.player.findPerk(PerkLib.TamamoNoMaeCursedKimono) >= 0) game.player.removePerk(PerkLib.TamamoNoMaeCursedKimono);
-			while (game.player.findPerk(PerkLib.SluttySeduction) >= 0) game.player.removePerk(PerkLib.SluttySeduction);
+			while (game.player.hasPerk(PerkLib.TamamoNoMaeCursedKimono)) game.player.removePerk(PerkLib.TamamoNoMaeCursedKimono);
+			while (game.player.hasPerk(PerkLib.SluttySeduction)) game.player.removePerk(PerkLib.SluttySeduction);
 			return super.playerRemove();
 		}
 

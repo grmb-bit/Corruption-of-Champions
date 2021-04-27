@@ -774,13 +774,13 @@ public class EbonLabyrinth extends DungeonAbstractContent
 					fatRecovery += 10;
 					hpRecovery += 10;
 				}
-				if (player.findPerk(PerkLib.SpeedyRecovery) >= 0) fatRecovery += 5;
-				if (player.findPerk(PerkLib.SpeedyRecuperation) >= 0) fatRecovery += 10;
-				if (player.findPerk(PerkLib.SpeedyRejuvenation) >= 0) fatRecovery += 20;
-				if (player.findPerk(PerkLib.ControlledBreath) >= 0) fatRecovery *= 1.1;
+				if (player.hasPerk(PerkLib.SpeedyRecovery)) fatRecovery += 5;
+				if (player.hasPerk(PerkLib.SpeedyRecuperation)) fatRecovery += 10;
+				if (player.hasPerk(PerkLib.SpeedyRejuvenation)) fatRecovery += 20;
+				if (player.hasPerk(PerkLib.ControlledBreath)) fatRecovery *= 1.1;
 				if (player.hasStatusEffect(StatusEffects.BathedInHotSpring)) fatRecovery *= 1.2;
-				if (player.findPerk(PerkLib.RecuperationSleep) >= 0) multiplier += 1;
-				if (player.findPerk(PerkLib.RejuvenationSleep) >= 0) multiplier += 2;
+				if (player.hasPerk(PerkLib.RecuperationSleep)) multiplier += 1;
+				if (player.hasPerk(PerkLib.RejuvenationSleep)) multiplier += 2;
 				if (flags[kFLAGS.HUNGER_ENABLED] > 0)
 				{
 					if (player.hunger < 25)
@@ -812,8 +812,8 @@ public class EbonLabyrinth extends DungeonAbstractContent
 				fatigue( -(timeQ * fatRecovery * multiplier));
 				model.time.hours += timeQ;
 				SceneLib.combat.regeneration(false);
-				if (player.findPerk(PerkLib.JobSoulCultivator) >= 0) SceneLib.combat.soulforceregeneration(false);
-				if (player.findPerk(PerkLib.JobSorcerer) >= 0) SceneLib.combat.manaregeneration(false);
+				if (player.hasPerk(PerkLib.JobSoulCultivator)) SceneLib.combat.soulforceregeneration(false);
+				if (player.hasPerk(PerkLib.JobSorcerer)) SceneLib.combat.manaregeneration(false);
 				SceneLib.combat.wrathregeneration(false);
 				if (model.time.hours > 23) {
 					model.time.hours -= 24;

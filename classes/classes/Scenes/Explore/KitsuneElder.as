@@ -64,8 +64,8 @@ import classes.internals.*;
 			var damage:Number = 0;
 			damage += inteligencescalingbonus();
 			damage *= kitsunesoulskillMod();
-			if (player.findPerk(PerkLib.FromTheFrozenWaste) >= 0 || player.findPerk(PerkLib.ColdAffinity) >= 0) damage *= 3;
-			if (player.findPerk(PerkLib.FireAffinity) >= 0) damage *= 0.3;
+			if (player.hasPerk(PerkLib.FromTheFrozenWaste) || player.hasPerk(PerkLib.ColdAffinity)) damage *= 3;
+			if (player.hasPerk(PerkLib.FireAffinity)) damage *= 0.3;
 			if (player.armorPerk != "Heavy" && player.armorPerk != "Light Ayo" && player.armorPerk != "Heavy Ayo" && player.armorPerk != "Ultra Heavy Ayo") damage *= 2;
 			damage = Math.round(damage);
 			player.takeMagicDamage(damage, true);
@@ -76,8 +76,8 @@ import classes.internals.*;
 			var resist:int = 0;
 			if (player.inte < 30) resist = Math.round(player.inte);
 			else resist = 30;
-			if (player.findPerk(PerkLib.Whispered) >= 0) resist += 20;
-			if ((player.findPerk(PerkLib.HistoryReligious) >= 0 || player.findPerk(PerkLib.PastLifeReligious) >= 0) && player.cor < 20) resist += 20 - player.cor;
+			if (player.hasPerk(PerkLib.Whispered)) resist += 20;
+			if ((player.hasPerk(PerkLib.HistoryReligious) || player.hasPerk(PerkLib.PastLifeReligious)) && player.cor < 20) resist += 20 - player.cor;
 			var select:int = rand(7);
 			//Attack:
 			if (select == 0) {

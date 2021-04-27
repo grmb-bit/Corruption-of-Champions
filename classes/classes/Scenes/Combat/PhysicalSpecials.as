@@ -342,7 +342,7 @@ public class PhysicalSpecials extends BaseCombatContent {
 					if (combat.isEnnemyInvisible) bd.disable("You cannot use offensive skills against an opponent you cannot see or target.");
 				}
 				// Whirlwind (Beast Warrior)
-				if (player.findPerk(PerkLib.JobBeastWarrior) >= 0 && ((player.weaponName == "fists" && player.haveNaturalClaws()) || player.haveNaturalClawsTypeWeapon())) {
+				if (player.hasPerk(PerkLib.JobBeastWarrior) && ((player.weaponName == "fists" && player.haveNaturalClaws()) || player.haveNaturalClawsTypeWeapon())) {
 					bd = buttons.add("F. Whirlwind", whirlwindClaws).hint("Spin yourself around to slash multiple enemies with your claws at once.  \n\n<b>AoE attack.</b>");
 					if (combat.isEnnemyInvisible) bd.disable("You cannot use offensive skills against an opponent you cannot see or target.");
 				}
@@ -1088,7 +1088,7 @@ public class PhysicalSpecials extends BaseCombatContent {
 		powershotpowervalue += scalingBonusSpeed() * 0.2;
 		powershotpowervalue += scalingBonusStrength() * 0.4;
 		if (powershotpowervalue < 10) powershotpowervalue = 10;
-		if (player.findPerk(PerkLib.DeadlyAim) < 0) powershotpowervalue *= (monster.damageRangePercent() / 100);
+		if (player.hasPerk(PerkLib.DeadlyAim) == false) powershotpowervalue *= (monster.damageRangePercent() / 100);
 		if (player.weaponRangeAttack < 51) powershotpowervalue *= (1 + (player.weaponRangeAttack * 0.03));
 		else if (player.weaponRangeAttack >= 51 && player.weaponRangeAttack < 101) powershotpowervalue *= (2.5 + ((player.weaponRangeAttack - 50) * 0.025));
 		else if (player.weaponRangeAttack >= 101 && player.weaponRangeAttack < 151) powershotpowervalue *= (3.75 + ((player.weaponRangeAttack - 100) * 0.02));
@@ -1392,13 +1392,13 @@ public class PhysicalSpecials extends BaseCombatContent {
 		if (player.weaponRangePerk == "Bow") {
 			damage += player.spe;
 			damage += scalingBonusSpeed() * 0.2;
-			if (player.findPerk(PerkLib.DeadlyAim) < 0) damage *= (monster.damageRangePercent() / 100);
+			if (player.hasPerk(PerkLib.DeadlyAim) == false) damage *= (monster.damageRangePercent() / 100);
 			if (damage < 10) damage = 10;
 		}
 		else {
 			damage += player.weaponRangeAttack * 20;
 			if (player.hasPerk(PerkLib.JobGunslinger)) damage += player.weaponRangeAttack;
-			if (player.findPerk(PerkLib.DeadlyAim) < 0) damage *= (monster.damageRangePercent() / 100);//jak ten perk o ignorowaniu armora bedzie czy coś to tu dać jak nie ma tego perku to sie dolicza
+			if (player.hasPerk(PerkLib.DeadlyAim) == false) damage *= (monster.damageRangePercent() / 100);//jak ten perk o ignorowaniu armora bedzie czy coś to tu dać jak nie ma tego perku to sie dolicza
 			if (player.hasPerk(PerkLib.AlchemicalCartridge)) damage += scalingBonusIntelligence() * 0.12;
 			if (player.hasPerk(PerkLib.ChurchOfTheGun)) damage += scalingBonusWisdom() * 0.18;
 		}
@@ -2204,17 +2204,17 @@ public class PhysicalSpecials extends BaseCombatContent {
 		var bimbo:Boolean   = false;
 		var bro:Boolean     = false;
 		var futa:Boolean    = false;
-		if (player.findPerk(PerkLib.SensualLover) >= 0) lustDmgF += 2;
-		if (player.findPerk(PerkLib.Seduction) >= 0) lustDmgF += 5;
-		if (player.findPerk(PerkLib.SluttySeduction) >= 0) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
-		if (player.findPerk(PerkLib.WizardsEnduranceAndSluttySeduction) >= 0) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
+		if (player.hasPerk(PerkLib.SensualLover)) lustDmgF += 2;
+		if (player.hasPerk(PerkLib.Seduction)) lustDmgF += 5;
+		if (player.hasPerk(PerkLib.SluttySeduction)) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
+		if (player.hasPerk(PerkLib.WizardsEnduranceAndSluttySeduction)) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
 		if (bimbo || bro || futa) lustDmgF += 5;
-		if (player.findPerk(PerkLib.FlawlessBody) >= 0) lustDmgF += 10;
+		if (player.hasPerk(PerkLib.FlawlessBody)) lustDmgF += 10;
 		lustDmgF += scalingBonusLibido() * 0.1;
 		if (player.hasPerk(PerkLib.EromancyExpert)) lustDmgF *= 1.5;
-		if (player.findPerk(PerkLib.JobSeducer) >= 0) lustDmgF += player.teaseLevel * 3;
+		if (player.hasPerk(PerkLib.JobSeducer)) lustDmgF += player.teaseLevel * 3;
 		else lustDmgF += player.teaseLevel * 2;
-		if (player.findPerk(PerkLib.JobCourtesan) >= 0 && monster.findPerk(PerkLib.EnemyBossType) >= 0) lustDmgF *= 1.2;
+		if (player.hasPerk(PerkLib.JobCourtesan) && monster.hasPerk(PerkLib.EnemyBossType)) lustDmgF *= 1.2;
 		switch (player.coatType()) {
 			case Skin.FUR:
 				lustDmgF += (1 + player.newGamePlusMod());
@@ -2229,9 +2229,9 @@ public class PhysicalSpecials extends BaseCombatContent {
 				lustDmgF += (4 * (1 + player.newGamePlusMod()));
 				break;
 		}
-		if (player.findPerk(PerkLib.SluttySimplicity) >= 0 && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
-		if (player.findPerk(PerkLib.ElectrifiedDesire) >= 0) lustDmgF *= (1 + (player.lust100 * 0.01));
-		if (player.findPerk(PerkLib.HistoryWhore) >= 0 || player.findPerk(PerkLib.PastLifeWhore) >= 0) lustDmgF *= (1 + combat.historyWhoreBonus());
+		if (player.hasPerk(PerkLib.SluttySimplicity) && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
+		if (player.hasPerk(PerkLib.ElectrifiedDesire)) lustDmgF *= (1 + (player.lust100 * 0.01));
+		if (player.hasPerk(PerkLib.HistoryWhore) || player.hasPerk(PerkLib.PastLifeWhore)) lustDmgF *= (1 + combat.historyWhoreBonus());
 		if (player.hasPerk(PerkLib.RacialParagon)) lustDmgF *= 1.50;
 		if (player.hasPerk(PerkLib.Apex)) lustDmgF *= 1.50;
 		if (player.hasPerk(PerkLib.AlphaAndOmega)) lustDmgF *= 1.50;
@@ -2244,17 +2244,17 @@ public class PhysicalSpecials extends BaseCombatContent {
 		//Determine if critical tease!
 		var crit:Boolean = false;
 		var critChance:int = 5;
-		if (player.findPerk(PerkLib.CriticalPerformance) >= 0) {
+		if (player.hasPerk(PerkLib.CriticalPerformance)) {
 			if (player.lib <= 100) critChance += player.lib / 5;
 			if (player.lib > 100) critChance += 20;
 		}
-		if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance = 0;
+		if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance = 0;
 		if (rand(100) < critChance) {
 			crit = true;
 			lustDmgF *= 1.75;
 		}
-		if (player.findPerk(PerkLib.ChiReflowLust) >= 0) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
-		if (player.findPerk(PerkLib.ArouseTheAudience) >= 0 && (monster.findPerk(PerkLib.EnemyGroupType) >= 0 || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
+		if (player.hasPerk(PerkLib.ChiReflowLust)) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
+		if (player.hasPerk(PerkLib.ArouseTheAudience) && (monster.hasPerk(PerkLib.EnemyGroupType) || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
 		lustDmgF = lustDmgF * monster.lustVuln;
 		lustDmgF = Math.round(lustDmgF);
 		monster.teased(lustDmgF);
@@ -2567,9 +2567,9 @@ public class PhysicalSpecials extends BaseCombatContent {
 	
 	public function permanentgolemsendcost():Number {
 		var permanentgolemsendcost:Number = 10;
-		if (player.findPerk(PerkLib.EpicGolemMaker) >= 0) permanentgolemsendcost += 5;
-		if (player.findPerk(PerkLib.EpicGolemMaker2ndCircle) >= 0) permanentgolemsendcost += 15;
-		if (player.findPerk(PerkLib.EpicGolemMaker3rdCircle) >= 0) permanentgolemsendcost += 40;
+		if (player.hasPerk(PerkLib.EpicGolemMaker)) permanentgolemsendcost += 5;
+		if (player.hasPerk(PerkLib.EpicGolemMaker2ndCircle)) permanentgolemsendcost += 15;
+		if (player.hasPerk(PerkLib.EpicGolemMaker3rdCircle)) permanentgolemsendcost += 40;
 		return permanentgolemsendcost;
 	}
 	public function permanentimprovedgolemsendcost():Number {
@@ -2835,17 +2835,17 @@ public class PhysicalSpecials extends BaseCombatContent {
 			var lustDmgF:Number = 20 + rand(6);
 			var lustBoostToLustDmg:Number = 0;
 			if (player.hasPerk(PerkLib.DeadlyThrow)) lustDmgF += (player.spe/100);
-			if (player.findPerk(PerkLib.SensualLover) >= 0) lustDmgF += 2;
-			if (player.findPerk(PerkLib.Seduction) >= 0) lustDmgF += 5;
-			if (player.findPerk(PerkLib.SluttySeduction) >= 0) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
-			if (player.findPerk(PerkLib.WizardsEnduranceAndSluttySeduction) >= 0) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
+			if (player.hasPerk(PerkLib.SensualLover)) lustDmgF += 2;
+			if (player.hasPerk(PerkLib.Seduction)) lustDmgF += 5;
+			if (player.hasPerk(PerkLib.SluttySeduction)) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
+			if (player.hasPerk(PerkLib.WizardsEnduranceAndSluttySeduction)) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
 			if (player.hasPerk(PerkLib.BimboBody) || player.hasPerk(PerkLib.BroBody) || player.hasPerk(PerkLib.FutaForm)) lustDmgF += 5;
-			if (player.findPerk(PerkLib.FlawlessBody) >= 0) lustDmgF += 10;
+			if (player.hasPerk(PerkLib.FlawlessBody)) lustDmgF += 10;
 			lustDmgF += scalingBonusLibido() * 0.1;
 			if (player.hasPerk(PerkLib.EromancyExpert)) lustDmgF *= 1.5;
-			if (player.findPerk(PerkLib.JobSeducer) >= 0) lustDmgF += player.teaseLevel * 3;
+			if (player.hasPerk(PerkLib.JobSeducer)) lustDmgF += player.teaseLevel * 3;
 			else lustDmgF += player.teaseLevel * 2;
-			if (player.findPerk(PerkLib.JobCourtesan) >= 0 && monster.findPerk(PerkLib.EnemyBossType) >= 0) lustDmgF *= 1.2;
+			if (player.hasPerk(PerkLib.JobCourtesan) && monster.hasPerk(PerkLib.EnemyBossType)) lustDmgF *= 1.2;
 			switch (player.coatType()) {
 				case Skin.FUR:
 					lustDmgF += (1 + player.newGamePlusMod());
@@ -2860,9 +2860,9 @@ public class PhysicalSpecials extends BaseCombatContent {
 					lustDmgF += (4 * (1 + player.newGamePlusMod()));
 					break;
 			}
-			if (player.findPerk(PerkLib.SluttySimplicity) >= 0 && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
-			if (player.findPerk(PerkLib.ElectrifiedDesire) >= 0) lustDmgF *= (1 + (player.lust100 * 0.01));
-			if (player.findPerk(PerkLib.HistoryWhore) >= 0 || player.findPerk(PerkLib.PastLifeWhore) >= 0) lustDmgF *= (1 + combat.historyWhoreBonus());
+			if (player.hasPerk(PerkLib.SluttySimplicity) && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
+			if (player.hasPerk(PerkLib.ElectrifiedDesire)) lustDmgF *= (1 + (player.lust100 * 0.01));
+			if (player.hasPerk(PerkLib.HistoryWhore) || player.hasPerk(PerkLib.PastLifeWhore)) lustDmgF *= (1 + combat.historyWhoreBonus());
 			if (player.hasPerk(PerkLib.RacialParagon)) lustDmgF *= 1.50;
 			if (player.hasPerk(PerkLib.Apex)) lustDmgF *= 1.50;
 			if (player.hasPerk(PerkLib.AlphaAndOmega)) lustDmgF *= 1.50;
@@ -2875,19 +2875,19 @@ public class PhysicalSpecials extends BaseCombatContent {
 			//Determine if critical tease!
 			var crit:Boolean = false;
 			var critChance:int = 5;
-			if (player.findPerk(PerkLib.CriticalPerformance) >= 0) {
+			if (player.hasPerk(PerkLib.CriticalPerformance)) {
 				if (player.lib <= 100) critChance += player.lib / 5;
 				if (player.lib > 100) critChance += 20;
 				if (player.hasPerk(PerkLib.AnatomyExpert)) critChance += 10;
 			}
-			if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance = 0;
+			if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance = 0;
 			if (rand(100) < critChance) {
 			crit = true;
 				if (!player.hasPerk(PerkLib.AnatomyExpert)) lustDmgF *= 1.75;
 				if (player.hasPerk(PerkLib.AnatomyExpert)) lustDmgF *= 2.50;
 			}
-			if (player.findPerk(PerkLib.ChiReflowLust) >= 0) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
-			if (player.findPerk(PerkLib.ArouseTheAudience) >= 0 && (monster.findPerk(PerkLib.EnemyGroupType) >= 0 || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
+			if (player.hasPerk(PerkLib.ChiReflowLust)) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
+			if (player.hasPerk(PerkLib.ArouseTheAudience) && (monster.hasPerk(PerkLib.EnemyGroupType) || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
 			lustDmgF = lustDmgF * monster.lustVuln;
 			lustDmgF = Math.round(lustDmgF);
 			monster.teased(lustDmgF,false);
@@ -4635,15 +4635,15 @@ public class PhysicalSpecials extends BaseCombatContent {
 		else damage += 80;
 		//Lust damage!
 		lustdamage *= 0.7;
-		if (player.findPerk(PerkLib.SensualLover) >= 0) lustdamage += 2;
-		if (player.findPerk(PerkLib.Seduction) >= 0) lustdamage += 5;
-		if (player.findPerk(PerkLib.SluttySeduction) >= 0) lustdamage += player.perkv1(PerkLib.SluttySeduction);
-		if (player.findPerk(PerkLib.WizardsEnduranceAndSluttySeduction) >= 0) lustdamage += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
+		if (player.hasPerk(PerkLib.SensualLover)) lustdamage += 2;
+		if (player.hasPerk(PerkLib.Seduction)) lustdamage += 5;
+		if (player.hasPerk(PerkLib.SluttySeduction)) lustdamage += player.perkv1(PerkLib.SluttySeduction);
+		if (player.hasPerk(PerkLib.WizardsEnduranceAndSluttySeduction)) lustdamage += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
 		if (bimbo || bro || futa) lustdamage += 5;
-		if (player.findPerk(PerkLib.FlawlessBody) >= 0) lustdamage += 10;
+		if (player.hasPerk(PerkLib.FlawlessBody)) lustdamage += 10;
 		lustdamage += scalingBonusLibido() * 0.1;
 		if (player.hasPerk(PerkLib.EromancyExpert)) lustdamage *= 1.5;
-		if (player.findPerk(PerkLib.JobSeducer) >= 0) lustdamage += player.teaseLevel * 3;
+		if (player.hasPerk(PerkLib.JobSeducer)) lustdamage += player.teaseLevel * 3;
 		if (player.hasPerk(PerkLib.RacialParagon)) lustdamage *= 1.50;
 		if (player.hasPerk(PerkLib.Apex)) lustdamage *= 1.50;
 		if (player.hasPerk(PerkLib.AlphaAndOmega)) lustdamage *= 1.50;
@@ -4652,7 +4652,7 @@ public class PhysicalSpecials extends BaseCombatContent {
 		var crit:Boolean = false;
 		var critChance:Number;
 		critChance = combatPhysicalCritical();
-		if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance = 0;
+		if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance = 0;
 		if (rand(100) < critChance) {
 			crit = true;
 			lustdamage *= 1.75;
@@ -5555,7 +5555,7 @@ public class PhysicalSpecials extends BaseCombatContent {
 		var damage:Number = 300 + rand(121);
 		//damage += player.weaponRangeAttack * 20;
 		//if (player.hasPerk(PerkLib.JobGunslinger)) damage += player.weaponRangeAttack;
-		//if (player.findPerk(PerkLib.DeadlyAim) < 0) damage *= (monster.damageRangePercent() / 100);//jak ten perk o ignorowaniu armora bedzie czy coś to tu dać jak nie ma tego perku to sie dolicza
+		//if (player.hasPerk(PerkLib.DeadlyAim) == false) damage *= (monster.damageRangePercent() / 100);//jak ten perk o ignorowaniu armora bedzie czy coś to tu dać jak nie ma tego perku to sie dolicza
 		//if (player.hasPerk(PerkLib.AlchemicalCartridge)) damage += scalingBonusIntelligence() * 0.12;
 		//if (player.hasPerk(PerkLib.ChurchOfTheGun)) damage += scalingBonusWisdom() * 0.18;
 		//Weapon addition!
@@ -5792,7 +5792,7 @@ public class PhysicalSpecials extends BaseCombatContent {
 		var critChance:int = 15;
 		var critDamage:Number = 1.75;
 		critChance += combatPhysicalCritical();
-		if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance = 0;
+		if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance = 0;
 		if (rand(100) < critChance) {
 			crit = true;
 			damage *= critDamage;

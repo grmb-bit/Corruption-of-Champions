@@ -62,15 +62,15 @@ public class Kiha extends Monster
 				outputText("You manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she's reunited with her axe and angrier than before.");
 			}
 			//Determine if evaded
-			else if(player.findPerk(PerkLib.Evade) >= 0 && rand(100) < 10) {
+			else if(player.hasPerk(PerkLib.Evade) && rand(100) < 10) {
 				outputText("Using your skills at evasion, you manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she's reunited with her axe and angrier than before.");
 			}
 			//("Misdirection"
-			else if(player.findPerk(PerkLib.Misdirection) >= 0 && rand(100) < 10 && (player.armorName == "red, high-society bodysuit" || player.armorName == "Fairy Queen Regalia")) {
+			else if(player.hasPerk(PerkLib.Misdirection) && rand(100) < 10 && (player.armorName == "red, high-society bodysuit" || player.armorName == "Fairy Queen Regalia")) {
 				outputText("Using your skills at misdirection, you manage to make Kiha think you're going to dodge one way before stepping in the other direction.  You turn back, finding she has her axe in hand and looks rather steamed.");
 			}
 			//Determine if cat'ed
-			else if(player.findPerk(PerkLib.Flexibility) >= 0 && rand(100) < 6) {
+			else if(player.hasPerk(PerkLib.Flexibility) && rand(100) < 6) {
 				outputText("Using your cat-like reflexes, you manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she's reunited with her axe and angrier than before.");
 			}
 			//HIT!
@@ -93,15 +93,15 @@ public class Kiha extends Monster
 			outputText("Kiha throws her arms back and roars, exhaling a swirling tornado of fire directly at you!\n");
 			//Miss:
 			//Determine if evaded
-			if(player.findPerk(PerkLib.Evade) >= 0 && rand(100) < 10) {
+			if(player.hasPerk(PerkLib.Evade) && rand(100) < 10) {
 				outputText("Using your talent for evasion, you manage to sidestep the flames in the nick of time; much to the dragoness' displeasure.");
 			}
 			//("Misdirection"
-			else if(player.findPerk(PerkLib.Misdirection) >= 0 && rand(100) < 10 && (player.armorName == "red, high-society bodysuit" || player.armorName == "Fairy Queen Regalia")) {
+			else if(player.hasPerk(PerkLib.Misdirection) && rand(100) < 10 && (player.armorName == "red, high-society bodysuit" || player.armorName == "Fairy Queen Regalia")) {
 				outputText("Using your talent for misdirection, you manage to sidestep the flames in the nick of time; much to the dragoness' displeasure.");
 			}
 			//Determine if cat'ed
-			else if(player.findPerk(PerkLib.Flexibility) >= 0 && rand(100) < 6) {
+			else if(player.hasPerk(PerkLib.Flexibility) && rand(100) < 6) {
 				outputText("Using your cat-like flexibility, you manage to sidestep the flames in the nick of time; much to the dragoness' displeasure.");
 			}
 			else {

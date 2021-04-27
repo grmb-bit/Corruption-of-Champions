@@ -99,7 +99,7 @@ public class MagicSpecials extends BaseCombatContent {
 				bd.disable("<b>You need more time before you can use Possess again.</b>\n\n");
 			} else if (combat.isEnnemyInvisible) bd.disable("You cannot use offensive skills against an opponent you cannot see or target.");
 		}
-		if ((player.raijuScore() >= 7 || (player.thunderbirdScore() >= 10 && player.tailType == Tail.THUNDERBIRD)) && player.findPerk(PerkLib.ElectrifiedDesire) >= 0) {
+		if ((player.raijuScore() >= 7 || (player.thunderbirdScore() >= 10 && player.tailType == Tail.THUNDERBIRD)) && player.hasPerk(PerkLib.ElectrifiedDesire)) {
 			bd = buttons.add("Orgasmic L.S.", OrgasmicLightningStrike, "Masturbate to unleash a massive discharge.", "Orgasmic Lightning Strike");
 			if (combat.isEnnemyInvisible) bd.disable("You cannot use offensive skills against an opponent you cannot see or target.");
 			bd = buttons.add("Pleasure bolt", PleasureBolt, "Release a discharge of your lust inducing electricity. It will rise your lust by 2% of max lust after each use.", "Pleasure bolt");
@@ -977,21 +977,21 @@ public class MagicSpecials extends BaseCombatContent {
 			var bimbo:Boolean   = false;
 			var bro:Boolean     = false;
 			var futa:Boolean    = false;
-			if (player.findPerk(PerkLib.SensualLover) >= 0) {
+			if (player.hasPerk(PerkLib.SensualLover)) {
 				lustDmgF += 2;
 			}
-			if (player.findPerk(PerkLib.Seduction) >= 0) lustDmgF += 5;
-			if (player.findPerk(PerkLib.SluttySeduction) >= 0) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
-			if (player.findPerk(PerkLib.WizardsEnduranceAndSluttySeduction) >= 0) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
+			if (player.hasPerk(PerkLib.Seduction)) lustDmgF += 5;
+			if (player.hasPerk(PerkLib.SluttySeduction)) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
+			if (player.hasPerk(PerkLib.WizardsEnduranceAndSluttySeduction)) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
 			if (bimbo || bro || futa) {
 				lustDmgF += 5;
 			}
-			if (player.findPerk(PerkLib.FlawlessBody) >= 0) lustDmgF += 10;
+			if (player.hasPerk(PerkLib.FlawlessBody)) lustDmgF += 10;
 			lustDmgF += scalingBonusLibido() * 0.1;
 			if (player.hasPerk(PerkLib.EromancyExpert)) lustDmgF *= 1.5;
-			if (player.findPerk(PerkLib.JobSeducer) >= 0) lustDmgF += player.teaseLevel * 3;
+			if (player.hasPerk(PerkLib.JobSeducer)) lustDmgF += player.teaseLevel * 3;
 			else lustDmgF += player.teaseLevel * 2;
-			if (player.findPerk(PerkLib.JobCourtesan) >= 0 && monster.findPerk(PerkLib.EnemyBossType) >= 0) lustDmgF *= 1.2;
+			if (player.hasPerk(PerkLib.JobCourtesan) && monster.hasPerk(PerkLib.EnemyBossType)) lustDmgF *= 1.2;
 			switch (player.coatType()) {
 				case Skin.FUR:
 					lustDmgF += (1 + player.newGamePlusMod());
@@ -1006,11 +1006,11 @@ public class MagicSpecials extends BaseCombatContent {
 					lustDmgF += (4 * (1 + player.newGamePlusMod()));
 					break;
 			}
-			if (player.findPerk(PerkLib.SluttySimplicity) >= 0 && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
-			if (player.findPerk(PerkLib.ElectrifiedDesire) >= 0) {
+			if (player.hasPerk(PerkLib.SluttySimplicity) && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
+			if (player.hasPerk(PerkLib.ElectrifiedDesire)) {
 				lustDmgF *= (1 + (player.lust100 * 0.01));
 			}
-			if (player.findPerk(PerkLib.HistoryWhore) >= 0 || player.findPerk(PerkLib.PastLifeWhore) >= 0) {
+			if (player.hasPerk(PerkLib.HistoryWhore) || player.hasPerk(PerkLib.PastLifeWhore)) {
 				lustDmgF *= (1 + combat.historyWhoreBonus());
 			}
 			lustBoostToLustDmg += lustDmgF * 0.01;
@@ -1027,21 +1027,21 @@ public class MagicSpecials extends BaseCombatContent {
 			//Determine if critical tease!
 			var crit:Boolean = false;
 			var critChance:int = 5;
-			if (player.findPerk(PerkLib.CriticalPerformance) >= 0) {
+			if (player.hasPerk(PerkLib.CriticalPerformance)) {
 				if (player.lib <= 100) critChance += player.lib / 5;
 				if (player.lib > 100) critChance += 20;
 			}
-			if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance = 0;
+			if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance = 0;
 			if (rand(100) < critChance) {
 				crit = true;
 				lustDmgF *= 1.75;
 			}
-			if (player.findPerk(PerkLib.ChiReflowLust) >= 0) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
-			if (player.findPerk(PerkLib.ArouseTheAudience) >= 0 && (monster.findPerk(PerkLib.EnemyGroupType) >= 0 || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
+			if (player.hasPerk(PerkLib.ChiReflowLust)) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
+			if (player.hasPerk(PerkLib.ArouseTheAudience) && (monster.hasPerk(PerkLib.EnemyGroupType) || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
 			lustDmgF = lustDmgF * monster.lustVuln;
-			if (player.findPerk(PerkLib.HeartOfTheStorm) >= 0) lustDmgF *= 1.1;
-			if (player.findPerk(PerkLib.HeartOfTheStormEvolved) >= 0) lustDmgF *= 1.2;
-			if (player.findPerk(PerkLib.HeartOfTheStormFinalForm) >= 0) lustDmgF *= 1.3;
+			if (player.hasPerk(PerkLib.HeartOfTheStorm)) lustDmgF *= 1.1;
+			if (player.hasPerk(PerkLib.HeartOfTheStormEvolved)) lustDmgF *= 1.2;
+			if (player.hasPerk(PerkLib.HeartOfTheStormFinalForm)) lustDmgF *= 1.3;
 			if (player.hasPerk(PerkLib.RacialParagon)) lustDmgF *= 1.50;
 			if (player.hasPerk(PerkLib.Apex)) lustDmgF *= 1.50;
 			if (player.hasPerk(PerkLib.AlphaAndOmega)) lustDmgF *= 1.50;
@@ -1051,7 +1051,7 @@ public class MagicSpecials extends BaseCombatContent {
 			if (crit) outputText(" <b>Critical!</b>");
 			outputText("\n\n");
 			if (player.hasPerk(PerkLib.EromancyMaster)) combat.teaseXP(1 + combat.bonusExpAfterSuccesfullTease());
-			if (monster.findPerk(PerkLib.Resolute) < 0) monster.createStatusEffect(StatusEffects.Stunned,2,0,0,0);
+			if (monster.hasPerk(PerkLib.Resolute) == false) monster.createStatusEffect(StatusEffects.Stunned,2,0,0,0);
 			player.removeStatusEffect(StatusEffects.ChanneledAttack);
 			player.removeStatusEffect(StatusEffects.ChanneledAttackType);
 			enemyAI();
@@ -1111,21 +1111,21 @@ public class MagicSpecials extends BaseCombatContent {
 		var bimbo:Boolean   = false;
 		var bro:Boolean     = false;
 		var futa:Boolean    = false;
-		if (player.findPerk(PerkLib.SensualLover) >= 0) {
+		if (player.hasPerk(PerkLib.SensualLover)) {
 			lustDmgF += 2;
 		}
-		if (player.findPerk(PerkLib.Seduction) >= 0) lustDmgF += 5;
-		if (player.findPerk(PerkLib.SluttySeduction) >= 0) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
-		if (player.findPerk(PerkLib.WizardsEnduranceAndSluttySeduction) >= 0) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
+		if (player.hasPerk(PerkLib.Seduction)) lustDmgF += 5;
+		if (player.hasPerk(PerkLib.SluttySeduction)) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
+		if (player.hasPerk(PerkLib.WizardsEnduranceAndSluttySeduction)) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
 		if (bimbo || bro || futa) {
 			lustDmgF += 5;
 		}
-		if (player.findPerk(PerkLib.FlawlessBody) >= 0) lustDmgF += 10;
+		if (player.hasPerk(PerkLib.FlawlessBody)) lustDmgF += 10;
 		lustDmgF += scalingBonusLibido() * 0.1;
 		if (player.hasPerk(PerkLib.EromancyExpert)) lustDmgF *= 1.5;
-		if (player.findPerk(PerkLib.JobSeducer) >= 0) lustDmgF += player.teaseLevel * 3;
+		if (player.hasPerk(PerkLib.JobSeducer)) lustDmgF += player.teaseLevel * 3;
 		else lustDmgF += player.teaseLevel * 2;
-		if (player.findPerk(PerkLib.JobCourtesan) >= 0 && monster.findPerk(PerkLib.EnemyBossType) >= 0) lustDmgF *= 1.2;
+		if (player.hasPerk(PerkLib.JobCourtesan) && monster.hasPerk(PerkLib.EnemyBossType)) lustDmgF *= 1.2;
 		switch (player.coatType()) {
 			case Skin.FUR:
 				lustDmgF += (1 + player.newGamePlusMod());
@@ -1140,11 +1140,11 @@ public class MagicSpecials extends BaseCombatContent {
 				lustDmgF += (4 * (1 + player.newGamePlusMod()));
 				break;
 		}
-		if (player.findPerk(PerkLib.SluttySimplicity) >= 0 && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
-		if (player.findPerk(PerkLib.ElectrifiedDesire) >= 0) {
+		if (player.hasPerk(PerkLib.SluttySimplicity) && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
+		if (player.hasPerk(PerkLib.ElectrifiedDesire)) {
 				lustDmgF *= (1 + (player.lust100 * 0.01));
 		}
-		if (player.findPerk(PerkLib.HistoryWhore) >= 0 || player.findPerk(PerkLib.PastLifeWhore) >= 0) {
+		if (player.hasPerk(PerkLib.HistoryWhore) || player.hasPerk(PerkLib.PastLifeWhore)) {
 			lustDmgF *= (1 + combat.historyWhoreBonus());
 		}
 		lustBoostToLustDmg += lustDmgF * 0.01;
@@ -1155,20 +1155,20 @@ public class MagicSpecials extends BaseCombatContent {
 		//Determine if critical tease!
 		var crit2:Boolean = false;
 		var critChance2:int = 5;
-		if (player.findPerk(PerkLib.CriticalPerformance) >= 0) {
+		if (player.hasPerk(PerkLib.CriticalPerformance)) {
 			if (player.lib <= 100) critChance2 += player.lib / 5;
 			if (player.lib > 100) critChance2 += 20;
 		}
-		if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance2 = 0;
+		if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance2 = 0;
 		if (rand(100) < critChance2) {
 			crit2 = true;
 			lustDmgF *= 1.75;
 		}
-		if (player.findPerk(PerkLib.ChiReflowLust) >= 0) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
-		if (player.findPerk(PerkLib.ArouseTheAudience) >= 0 && (monster.findPerk(PerkLib.EnemyGroupType) >= 0 || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
-		if (player.findPerk(PerkLib.HeartOfTheStorm) >= 0) damage *= 1.1;
-		if (player.findPerk(PerkLib.HeartOfTheStormEvolved) >= 0) damage *= 1.2;
-		if (player.findPerk(PerkLib.HeartOfTheStormFinalForm) >= 0) damage *= 1.3;
+		if (player.hasPerk(PerkLib.ChiReflowLust)) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
+		if (player.hasPerk(PerkLib.ArouseTheAudience) && (monster.hasPerk(PerkLib.EnemyGroupType) || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
+		if (player.hasPerk(PerkLib.HeartOfTheStorm)) damage *= 1.1;
+		if (player.hasPerk(PerkLib.HeartOfTheStormEvolved)) damage *= 1.2;
+		if (player.hasPerk(PerkLib.HeartOfTheStormFinalForm)) damage *= 1.3;
 		if (player.hasPerk(PerkLib.RacialParagon)) lustDmgF *= 1.50;
 		if (player.hasPerk(PerkLib.Apex)) lustDmgF *= 1.50;
 		if (player.hasPerk(PerkLib.AlphaAndOmega)) lustDmgF *= 1.50;
@@ -1217,21 +1217,21 @@ public class MagicSpecials extends BaseCombatContent {
 		var bimbo:Boolean   = false;
 		var bro:Boolean     = false;
 		var futa:Boolean    = false;
-		if (player.findPerk(PerkLib.SensualLover) >= 0) {
+		if (player.hasPerk(PerkLib.SensualLover)) {
 			lustDmgF += 2;
 		}
-		if (player.findPerk(PerkLib.Seduction) >= 0) lustDmgF += 5;
-		if (player.findPerk(PerkLib.SluttySeduction) >= 0) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
-		if (player.findPerk(PerkLib.WizardsEnduranceAndSluttySeduction) >= 0) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
+		if (player.hasPerk(PerkLib.Seduction)) lustDmgF += 5;
+		if (player.hasPerk(PerkLib.SluttySeduction)) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
+		if (player.hasPerk(PerkLib.WizardsEnduranceAndSluttySeduction)) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
 		if (bimbo || bro || futa) {
 			lustDmgF += 5;
 		}
-		if (player.findPerk(PerkLib.FlawlessBody) >= 0) lustDmgF += 10;
+		if (player.hasPerk(PerkLib.FlawlessBody)) lustDmgF += 10;
 		lustDmgF += scalingBonusLibido() * 0.1;
 		if (player.hasPerk(PerkLib.EromancyExpert)) lustDmgF *= 1.5;
-		if (player.findPerk(PerkLib.JobSeducer) >= 0) lustDmgF += player.teaseLevel * 3;
+		if (player.hasPerk(PerkLib.JobSeducer)) lustDmgF += player.teaseLevel * 3;
 		else lustDmgF += player.teaseLevel * 2;
-		if (player.findPerk(PerkLib.JobCourtesan) >= 0 && monster.findPerk(PerkLib.EnemyBossType) >= 0) lustDmgF *= 1.2;
+		if (player.hasPerk(PerkLib.JobCourtesan) && monster.hasPerk(PerkLib.EnemyBossType)) lustDmgF *= 1.2;
 		switch (player.coatType()) {
 			case Skin.FUR:
 				lustDmgF += (1 + player.newGamePlusMod());
@@ -1246,11 +1246,11 @@ public class MagicSpecials extends BaseCombatContent {
 				lustDmgF += (4 * (1 + player.newGamePlusMod()));
 				break;
 		}
-		if (player.findPerk(PerkLib.SluttySimplicity) >= 0 && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
-		if (player.findPerk(PerkLib.ElectrifiedDesire) >= 0) {
+		if (player.hasPerk(PerkLib.SluttySimplicity) && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
+		if (player.hasPerk(PerkLib.ElectrifiedDesire)) {
 			lustDmgF *= (1 + (player.lust100 * 0.01));
 		}
-		if (player.findPerk(PerkLib.HistoryWhore) >= 0 || player.findPerk(PerkLib.PastLifeWhore) >= 0) {
+		if (player.hasPerk(PerkLib.HistoryWhore) || player.hasPerk(PerkLib.PastLifeWhore)) {
 			lustDmgF *= (1 + combat.historyWhoreBonus());
 		}
 		lustBoostToLustDmg += lustDmgF * 0.01;
@@ -1261,20 +1261,20 @@ public class MagicSpecials extends BaseCombatContent {
 		//Determine if critical tease!
 		var crit2:Boolean = false;
 		var critChance2:int = 5;
-		if (player.findPerk(PerkLib.CriticalPerformance) >= 0) {
+		if (player.hasPerk(PerkLib.CriticalPerformance)) {
 			if (player.lib <= 100) critChance2 += player.lib / 5;
 			if (player.lib > 100) critChance2 += 20;
 		}
-		if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChance2 = 0;
+		if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChance2 = 0;
 		if (rand(100) < critChance2) {
 			crit2 = true;
 			lustDmgF *= 1.75;
 		}
-		if (player.findPerk(PerkLib.ChiReflowLust) >= 0) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
-		if (player.findPerk(PerkLib.ArouseTheAudience) >= 0 && (monster.findPerk(PerkLib.EnemyGroupType) >= 0 || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
-		if (player.findPerk(PerkLib.HeartOfTheStorm) >= 0) lustDmgF *= 1.1;
-		if (player.findPerk(PerkLib.HeartOfTheStormEvolved) >= 0) lustDmgF *= 1.2;
-		if (player.findPerk(PerkLib.HeartOfTheStormFinalForm) >= 0) lustDmgF *= 1.3;
+		if (player.hasPerk(PerkLib.ChiReflowLust)) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
+		if (player.hasPerk(PerkLib.ArouseTheAudience) && (monster.hasPerk(PerkLib.EnemyGroupType) || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
+		if (player.hasPerk(PerkLib.HeartOfTheStorm)) lustDmgF *= 1.1;
+		if (player.hasPerk(PerkLib.HeartOfTheStormEvolved)) lustDmgF *= 1.2;
+		if (player.hasPerk(PerkLib.HeartOfTheStormFinalForm)) lustDmgF *= 1.3;
 		lustDmgF = lustDmgF * monster.lustVuln;
 		if (player.hasPerk(PerkLib.RacialParagon)) lustDmgF *= 1.50;
 		if (player.hasPerk(PerkLib.Apex)) lustDmgF *= 1.50;
@@ -1323,9 +1323,9 @@ public class MagicSpecials extends BaseCombatContent {
 				outputText(" ");
 				var CumLustDmg:Number = 0;
 				CumLustDmg += combat.scalingBonusLibido() * 0.2;
-				if (player.findPerk(PerkLib.HeartOfTheStorm) >= 0) CumLustDmg *= 1.20;
-				if (player.findPerk(PerkLib.HeartOfTheStormEvolved) >= 0) CumLustDmg *= 1.20;
-				if (player.findPerk(PerkLib.HeartOfTheStormFinalForm) >= 0) CumLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStorm)) CumLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStormEvolved)) CumLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStormFinalForm)) CumLustDmg *= 1.20;
 				monster.teased(CumLustDmg);
 			}
 			player.lust += (player.lust100 * 0.05);
@@ -1345,9 +1345,9 @@ public class MagicSpecials extends BaseCombatContent {
 				outputText(" ");
 				var MilkLustDmg:Number = 0;
 				MilkLustDmg += combat.scalingBonusLibido() * 0.2;
-				if (player.findPerk(PerkLib.HeartOfTheStorm) >= 0) MilkLustDmg *= 1.20;
-				if (player.findPerk(PerkLib.HeartOfTheStormEvolved) >= 0) MilkLustDmg *= 1.20;
-				if (player.findPerk(PerkLib.HeartOfTheStormFinalForm) >= 0) MilkLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStorm)) MilkLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStormEvolved)) MilkLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStormFinalForm)) MilkLustDmg *= 1.20;
 				monster.teased(MilkLustDmg);
 			}
 			player.lust += (player.lust100 * 0.05);
@@ -1369,9 +1369,9 @@ public class MagicSpecials extends BaseCombatContent {
 				outputText(" ");
 				var MilkCumLustDmg:Number = 0;
 				MilkCumLustDmg += combat.scalingBonusLibido() * 0.4;
-				if (player.findPerk(PerkLib.HeartOfTheStorm) >= 0) MilkCumLustDmg *= 1.20;
-				if (player.findPerk(PerkLib.HeartOfTheStormEvolved) >= 0) MilkCumLustDmg *= 1.20;
-				if (player.findPerk(PerkLib.HeartOfTheStormFinalForm) >= 0) MilkCumLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStorm)) MilkCumLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStormEvolved)) MilkCumLustDmg *= 1.20;
+				if (player.hasPerk(PerkLib.HeartOfTheStormFinalForm)) MilkCumLustDmg *= 1.20;
 				monster.teased(MilkCumLustDmg);
 			}
 			player.lust += (player.lust100 * 0.1);
@@ -4063,17 +4063,17 @@ public class MagicSpecials extends BaseCombatContent {
 		var bimbo:Boolean   = false;
 		var bro:Boolean     = false;
 		var futa:Boolean    = false;
-		if (player.findPerk(PerkLib.SensualLover) >= 0) lustDmgF += 2;
-		if (player.findPerk(PerkLib.Seduction) >= 0) lustDmgF += 5;
-		if (player.findPerk(PerkLib.SluttySeduction) >= 0) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
-		if (player.findPerk(PerkLib.WizardsEnduranceAndSluttySeduction) >= 0) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
+		if (player.hasPerk(PerkLib.SensualLover)) lustDmgF += 2;
+		if (player.hasPerk(PerkLib.Seduction)) lustDmgF += 5;
+		if (player.hasPerk(PerkLib.SluttySeduction)) lustDmgF += player.perkv1(PerkLib.SluttySeduction);
+		if (player.hasPerk(PerkLib.WizardsEnduranceAndSluttySeduction)) lustDmgF += player.perkv2(PerkLib.WizardsEnduranceAndSluttySeduction);
 		if (bimbo || bro || futa) lustDmgF += 5;
-		if (player.findPerk(PerkLib.FlawlessBody) >= 0) lustDmgF += 10;
+		if (player.hasPerk(PerkLib.FlawlessBody)) lustDmgF += 10;
 		lustDmgF += scalingBonusLibido() * 0.1;
 		if (player.hasPerk(PerkLib.EromancyExpert)) lustDmgF *= 1.5;
-		if (player.findPerk(PerkLib.JobSeducer) >= 0) lustDmgF += player.teaseLevel * 3;
+		if (player.hasPerk(PerkLib.JobSeducer)) lustDmgF += player.teaseLevel * 3;
 		else lustDmgF += player.teaseLevel * 2;
-		if (player.findPerk(PerkLib.JobCourtesan) >= 0 && monster.findPerk(PerkLib.EnemyBossType) >= 0) lustDmgF *= 1.2;
+		if (player.hasPerk(PerkLib.JobCourtesan) && monster.hasPerk(PerkLib.EnemyBossType)) lustDmgF *= 1.2;
 		switch (player.coatType()) {
 			case Skin.FUR:
 				lustDmgF += (1 + player.newGamePlusMod());
@@ -4088,9 +4088,9 @@ public class MagicSpecials extends BaseCombatContent {
 				lustDmgF += (4 * (1 + player.newGamePlusMod()));
 				break;
 		}
-		if (player.findPerk(PerkLib.SluttySimplicity) >= 0 && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
-		if (player.findPerk(PerkLib.ElectrifiedDesire) >= 0) lustDmgF *= (1 + (player.lust100 * 0.01));
-		if (player.findPerk(PerkLib.HistoryWhore) >= 0 || player.findPerk(PerkLib.PastLifeWhore) >= 0) lustDmgF *= (1 + combat.historyWhoreBonus());
+		if (player.hasPerk(PerkLib.SluttySimplicity) && player.armorName == "nothing") lustDmgF *= (1 + ((10 + rand(11)) / 100));
+		if (player.hasPerk(PerkLib.ElectrifiedDesire)) lustDmgF *= (1 + (player.lust100 * 0.01));
+		if (player.hasPerk(PerkLib.HistoryWhore) || player.hasPerk(PerkLib.PastLifeWhore)) lustDmgF *= (1 + combat.historyWhoreBonus());
 		lustBoostToLustDmg += lustDmgF * 0.01;
 		lustDmgF *= 0.2;
 		if (player.lust100 * 0.01 >= 0.9) lustDmgF += (lustBoostToLustDmg * 140);
@@ -4099,17 +4099,17 @@ public class MagicSpecials extends BaseCombatContent {
 		//Determine if critical tease!
 		var critL:Boolean = false;
 		var critChanceL:int = 5;
-		if (player.findPerk(PerkLib.CriticalPerformance) >= 0) {
+		if (player.hasPerk(PerkLib.CriticalPerformance)) {
 			if (player.lib <= 100) critChanceL += player.lib / 5;
 			if (player.lib > 100) critChanceL += 20;
 		}
-		if (monster.isImmuneToCrits() && player.findPerk(PerkLib.EnableCriticals) < 0) critChanceL = 0;
+		if (monster.isImmuneToCrits() && player.hasPerk(PerkLib.EnableCriticals) == false) critChanceL = 0;
 		if (rand(100) < critChanceL) {
 			critL = true;
 			lustDmgF *= 1.75;
 		}
-		if (player.findPerk(PerkLib.ChiReflowLust) >= 0) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
-		if (player.findPerk(PerkLib.ArouseTheAudience) >= 0 && (monster.findPerk(PerkLib.EnemyGroupType) >= 0 || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
+		if (player.hasPerk(PerkLib.ChiReflowLust)) lustDmgF *= UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
+		if (player.hasPerk(PerkLib.ArouseTheAudience) && (monster.hasPerk(PerkLib.EnemyGroupType) || monster.hasPerk(PerkLib.EnemyLargeGroupType))) lustDmgF *= 1.5;
 		lustDmgF = lustDmgF * monster.lustVuln;
 		if (player.hasPerk(PerkLib.RacialParagon)) lustDmgF *= 1.50;
 		if (player.hasPerk(PerkLib.Apex)) lustDmgF *= 1.50;
@@ -4709,7 +4709,7 @@ public class MagicSpecials extends BaseCombatContent {
 		monster.HP -= damage;
 		outputText("You call on the power of your tainted blood drawing out an almighty scream so strong and sharp it explode from you like a shockwave sending " + monster.a + monster.short + " flying. " + monster.Pronoun1 + " will be shaken from the glass shattering blast for a moment " + damage + " damage.");
 		if (!monster.hasStatusEffect(StatusEffects.Stunned)) {
-			if (monster.findPerk(PerkLib.Resolute) < 0) monster.createStatusEffect(StatusEffects.Stunned, 2, 0, 0, 0);
+			if (monster.hasPerk(PerkLib.Resolute) == false) monster.createStatusEffect(StatusEffects.Stunned, 2, 0, 0, 0);
 		}
 		outputText("\n\n");
 		checkAchievementDamage(damage);
